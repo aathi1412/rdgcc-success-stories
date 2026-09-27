@@ -1,0 +1,45 @@
+---
+import type { SocialLink } from "../lib/types";
+import Icon from "./Icon.astro";
+
+interface Props {
+  link: SocialLink;
+}
+
+const socialStyles: Record<string, string> = {
+  linkedin:
+    "hover:-translate-y-1 hover:border-[#0077B5] hover:bg-[#0077B5]",
+  facebook:
+    "hover:-translate-y-1 hover:border-[#1877F2] hover:bg-[#1877F2]",
+  whatsapp:
+    "hover:-translate-y-1 hover:border-green-500 hover:bg-green-500",
+};
+
+const socialIconMap: Record<string, string> = {
+  linkedin: "linkedin",
+  facebook: "facebook",
+  whatsapp: "whatsapp",
+};
+
+const { link } = Astro.props;
+
+const platform = link.platform.toLowerCase();
+---
+
+
+      <a
+        href={link.url}
+        aria-label={link.platform}
+        target="_blank"
+        rel="noopener noreferrer"
+        class:list={[
+          "flex h-11 w-11 items-center justify-center rounded-full",
+          "border border-white/10 bg-white/5",
+          "transition-all duration-300",
+          socialStyles[platform],
+        ]}
+      >
+        <img src=`${platform}.svg` alt={link.platform} class="h-8 w-8">      
+    </a>
+    
+</div>
