@@ -22,9 +22,10 @@ export interface SuccessStoriesPage {
 
 export interface SiteSettings {
     logo?: SanityImage;
-    GoogleIcon?: SanityImage;
+    googleIcon?: SanityImage;
     navLinks?: NavLink[];
     headerCta?: CtaButton;
+    footerLogo?: SanityImage;
     footerOutro?: string;
     footerColumns?: FooterColumn[];
     contactEmail?: string;
@@ -51,7 +52,7 @@ export interface CtaButton {
 
 export interface Features {
   title: string;
-  icon?: SanityImage;
+  icon?: string;
 }
 
 export interface StatItem {
