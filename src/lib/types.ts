@@ -65,7 +65,7 @@ export interface CaseStudyCard {
   title: string;
   description: string;
   image?: SanityImage;
-  icon?: SanityImage;
+  icon?: string;
   link?: CtaButton;
 }
 
