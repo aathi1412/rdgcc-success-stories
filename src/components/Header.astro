@@ -1,0 +1,64 @@
+---
+import type { SiteSettings } from '../lib/types';
+import Button from './Button.astro';
+import NavLinks from "./NavLinks.astro";
+
+interface Props {
+    settings: SiteSettings | null;
+    currentPath?: string;
+}
+
+const { settings, currentPath = '' } = Astro.props;
+const navLinks = settings?.navLinks ?? [];
+const cta = settings?.headerCta;
+---
+<!--sm  → 640px-->
+<!--md  → 768px-->
+<!--lg  → 1024px-->
+
+<header class="w-full lg:h-20 md:h-19 bg-white relative">
+    <div class="max-w-7xl h-19 lg:h-20 lg:px-6 px-5 flex justify-between items-center">
+        <a href="/">
+            <img src="https://cdn.sanity.io/images/5twaxtv5/production/dec60c1e06fa94ef47a1a489f73dfdcad5a59bf3-676x106.svg?w=400&amp;auto=format"
+                 alt="Site Logo"
+                 class="lg:w-55 w-43.75 h-auto"
+            >
+        </a>
+
+        <div class="hidden md:flex md:items-center md:gap-2 lg:gap-3">
+            <NavLinks links={navLinks} currentPath={currentPath} variant="desktop" />
+            {cta && <Button cta={cta} variant="solid" />}
+        </div>
+
+        <button
+                id="nav-toggle"
+                type="button"
+                class="lg:hidden flex h-11 w-11 items-center justify-center rounded-lg text-navy ml-auto"
+                aria-label="Toggle menu"
+                aria-expanded="false"
+                aria-controls="mobile-nav"
+        >
+            <svg width="24" height="24" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+                <path d="M1 1h20M1 8h20M1 15h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <div id="mobile-nav" class="hidden md:hidden flex-col gap-1 border-t border-gray-100 bg-white px-6 py-4">
+        <NavLinks links={navLinks} currentPath={currentPath} variant="mobile" />
+        {cta && <Button cta={cta} variant="solid" class="mt-3 w-full justify-center" />}
+    </div>
+</header>
+
+<script>
+    // Minimal, essential interaction — the mobile nav can't open without it.
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-nav');
+
+    toggle?.addEventListener('click', () => {
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        menu?.classList.toggle('hidden');
+        menu?.classList.toggle('flex');
+    });
+</script>
