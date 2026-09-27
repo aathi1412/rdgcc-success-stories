@@ -10,56 +10,79 @@ interface Props {
 
 const { card } = Astro.props;
 ---
+<article class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
+  <!-- rounded-2xl bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] sm:p-6 -->
+  <div class="flex flex-col flex-1">
 
-<article class="flex flex-col rounded-2xl bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] sm:p-6">
+    <p class="text-xs text-[#003A6B] font-medium tracking-wide">
+      {card.tag}
+    </p>
 
-  <p class="text-xs text-gray-400">
-    {card.tag}
-  </p>
+    <h3 class="font-bold text-[#003A6B] text-lg mt-0.5 mb-4">
+      {card.company}
+    </h3>
 
-  <h3 class="mt-1 font-bold text-navy">
-    {card.company}
-  </h3>
+    {card.image?.asset ? (
+      <div class="h-44 bg-slate-100 rounded-lg relative overflow-hidden mb-5 border border-slate-200/60">
+        <img
+          src={urlFor(card.image)
+            .width(400)
+            .height(240)
+            .fit('crop')
+            .quality(80)
+            .url()}
+          alt={card.image.alt || `${card.company} project photo`}
+          width="400"
+          height="240"
+          loading="lazy"
+          class="w-full h-full  rounded-xl object-cover"
+        />
+        {/* mt-4 aspect-5/3 for img */}
+      </div>
+    ) : (
+      <div
+        class="mt-4 aspect-5/3 w-full rounded-xl bg-gray-100"
+        role="presentation"
+      ></div>
+    )}
+    <!-- Case study icon -->
+     <!-- mt-4 size-8 shrink-0 -->
+    <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white mb-4 shadow-sm">
+      <CaseStudyIcon name={card.icon} />
+    </div>
 
-  {card.image?.asset ? (
-    <img
-      src={urlFor(card.image)
-        .width(400)
-        .height(240)
-        .fit('crop')
-        .quality(80)
-        .url()}
-      alt={card.image.alt || `${card.company} project photo`}
-      width="400"
-      height="240"
-      loading="lazy"
-      class="mt-4 aspect-5/3 w-full rounded-xl object-cover"
-    />
-  ) : (
-    <div
-      class="mt-4 aspect-5/3 w-full rounded-xl bg-gray-100"
-      role="presentation"
-    ></div>
-  )}
-  <!-- Case study icon -->
-  <span class="mt-4 flex size-8 shrink-0 items-center justify-center rounded-full bg-[#004681] text-white">
-    <CaseStudyIcon name={card.icon} />
-  </span>
+    <!-- mt-4 text-brand sm:text-lg -->
+    <h4 class="font-medium text-xl text-[#004681] leading-snug mb-3 min-h-[56px]">
+      {card.title}
+    </h4>
 
-  <h4 class="mt-4 text-base font-bold leading-snug text-brand sm:text-lg">
-    {card.title}
-  </h4>
+    <!-- mt-2 flex-1 -->
+    <p class="text-sm md:text-base text-[#2C2C2C] leading-relaxed text-left">
+      {card.description}
+    </p>
 
-  <p class="mt-2 flex-1 text-sm leading-relaxed text-gray-500">
-    {card.description}
-  </p>
+    {card.link && (
+      // <Button
+      //   cta={card.link}
+      //   variant="link"
+      //   class="mt-5 self-start"
+      // />
+      <div class="mt-auto pt-6">
+        <a 
+          href={card.link.url} 
+          class="border-none hover:underline font-bold px-0 bg-transparent gap-2 flex items-center hover:bg-transparent text-primary hover:text-primary"
+        >
+          {card.link.label}
 
-  {card.link && (
-    <Button
-      cta={card.link}
-      variant="link"
-      class="mt-5 self-start"
-    />
-  )}
+          <span aria-hidden="true">
+            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+            </svg>
+          </span>
 
+        </a>
+      </div>
+    )}
+
+    </div>
 </article>
