@@ -1,0 +1,26 @@
+---
+import type { FooterColumn as FooterColumnType } from '../lib/types';
+
+interface Props {
+  column: FooterColumnType;
+}
+
+const { column } = Astro.props;
+---
+<div>
+  <h6 class="font-semibold font-heading text-md tracking-wide mb-5">
+    {column.heading}
+  </h6>
+  <ul class="space-y-3">
+    {column.links?.map((link) => (
+      <li>
+        <a 
+          href={link.url} 
+          class="text-slate-300 hover:text-white text-sm transition"
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
