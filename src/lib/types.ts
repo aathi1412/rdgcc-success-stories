@@ -22,7 +22,7 @@ export interface SuccessStoriesPage {
 
 export interface SiteSettings {
     logo?: SanityImage;
-    certificationBadge?: SanityImage;
+    GoogleIcon?: SanityImage;
     navLinks?: NavLink[];
     headerCta?: CtaButton;
     footerOutro?: string;
@@ -77,7 +77,7 @@ export interface Seo {
 export interface NavLink {
   label: string;
   url: string;
-  hasDropdown?: boolean;
+  children?: NavLink[];
 }
 
 export interface FooterLink {
