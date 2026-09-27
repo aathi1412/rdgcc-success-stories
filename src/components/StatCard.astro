@@ -7,7 +7,14 @@ interface Props {
 
 const { stat } = Astro.props;
 ---
-<div class="rounded-xl sm:rounded-2xl bg-white px-2 py-5 sm:px-4 sm:py-8 text-center shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-  <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-navy">{stat.number}</p>
-  <p class="mt-1 sm:mt-2 text-[11px] sm:text-sm leading-snug text-gray-500">{stat.label}</p>
+<!-- sm:rounded-2xl px-2 py-5 sm:px-4 sm:py-8 text-center shadow-[0_1px_3px_rgba(0,0,0,0.06)] -->
+<div class="bg-transparent md:bg-[#F8F9FA] rounded-2xl md:min-h-55 last:col-span-2 last:pt-0 sm:last:col-span-1 sm:last:justify-self-auto sm:last:pt-8 flex flex-col items-center justify-start p-8">
+  <!-- sm:text-3xl  lg:text-5xl -->
+  <h3 class="counter text-[40px] md:text-5xl font-heading font-bold text-primary mb-5 flex items-baseline justify-center">
+    {stat.number}
+  </h3>
+  <!-- mt-1 sm:mt-2 text-[11px] sm:text-sm  -->
+  <p class="text-center text-xl text-gray-500 leading-6 font-medium">
+    {stat.label}
+  </p>
 </div>
