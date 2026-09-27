@@ -1,0 +1,34 @@
+---
+import type { SuccessStoriesPage } from '../lib/types';
+import FeaturePill from './FeaturePill.astro';
+
+interface Props {
+  intro: SuccessStoriesPage['intro'];
+}
+
+const { intro } = Astro.props;
+---
+<section class="mx-auto max-w-7xl px-6 py-20 sm:py-16 md:py-20 grid gap-8 sm:gap-10 md:gap-12 md:grid-cols-2 items-start bg-[#F8FAFC]">
+  <div>
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-8 h-[2px] bg-[#004681]"></div>
+      {intro.eyebrow && (
+        <span class="text-sm font-semibold tracking-[0.05em] text-[#004681]">
+          {intro.eyebrow}
+        </span>
+      )}
+    </div>
+
+    <h2 class="text-[26px] text-4xl lg:text-5xl font-semibold font-heading text-[#004681] leading-tight">{intro.heading}</h2>
+    
+    {intro.description && 
+    <p class="mt-8 sm:mt-5 text-lg sm:text-base leading-relaxed text-[#2C2C2C] max-w-xl">{intro.description}</p>
+    }
+  </div>
+
+  <div class="flex flex-col gap-3 sm:gap-4 space-y-2">
+    {
+      intro.features?.map((feature) => <FeaturePill feature={feature} />)
+    }
+  </div>
+</section>
