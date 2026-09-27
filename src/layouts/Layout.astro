@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import type { SiteSettings, Seo } from '../lib/types';
+import Footer from '../components/Footer.astro';
+import { urlFor } from '../lib/sanity';
+
+
+interface Props {
+  seo?: Seo;
+  settings: SiteSettings | null;
+}
+
+
+const { seo, settings } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = settings?.logo?.asset
+? urlFor(settings.logo).width(1200).height(630).fit('crop').url()
+: undefined;
+
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{seo?.title ?? 'RightDirect'}</title>
+    {seo?.description && <meta name="description" content={seo.description} />}
+    <link rel="canonical" href={canonicalURL} />
+
+    {seo?.title && <meta property="og:title" content={seo.title} />}
+    {seo?.description && <meta property="og:description" content={seo.description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
+    <meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
+  </head>
+  <body class="min-h-screen flex flex-col font-sans text-gray-900">
+    <Header settings={settings} currentPath={Astro.url.pathname} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer settings={settings} />
+  </body>
+</html>
+
