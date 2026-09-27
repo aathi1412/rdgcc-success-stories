@@ -5,7 +5,9 @@
 @theme {
     --font-heading: "Manrope", sans-serif;
     --font-body: "Inter", sans-serif;
-    --text-heading: "#004681";
-    --text-primary: "2c2c2c";
-    --text-secondary: "#F4F4F4";
+    --color-primary: #004681;
+    --color-hero: #0a2240;
+    /* --text-primary: #2c2c2c;
+    --text-secondary: #F4F4F4; */
 }
+
