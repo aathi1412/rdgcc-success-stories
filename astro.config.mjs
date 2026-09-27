@@ -9,7 +9,7 @@ export default defineConfig({
     site: "http://localhost:4321",
     integrations: [
         sanity({
-            projectId: 'xvqh48jc',
+            projectId: 'ge7glcjb',
             dataset: 'production',
             useCdn: false
         })
