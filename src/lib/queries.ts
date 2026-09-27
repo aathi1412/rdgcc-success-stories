@@ -13,7 +13,7 @@ export const successStoriesPageQuery = groq`
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
     logo,
-    certificationBadge,
+    GoogleIcon,
     navLinks,
     headerCta,
     footerOutro,
