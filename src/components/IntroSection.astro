@@ -1,14 +1,15 @@
 ---
 import type { SuccessStoriesPage } from '../lib/types';
-import FeaturePill from './FeaturePill.astro';
+import Features from './Features.astro';
 
 interface Props {
   intro: SuccessStoriesPage['intro'];
 }
 
 const { intro } = Astro.props;
+console.log("Intro:", intro?.features?.at(0)?.icon);
 ---
-<section class="mx-auto max-w-7xl px-6 py-20 sm:py-16 md:py-20 grid gap-8 sm:gap-10 md:gap-12 md:grid-cols-2 items-start bg-[#F8FAFC]">
+<section class="mx-auto max-w-7xl px-6 py-20 sm:py-16 md:py-20 grid gap-10 md:gap-12 md:grid-cols-2 items-start font-heading bg-[#F8FAFC]">
   <div>
     <div class="flex items-center gap-3 mb-6">
       <div class="w-8 h-[2px] bg-[#004681]"></div>
@@ -28,7 +29,7 @@ const { intro } = Astro.props;
 
   <div class="flex flex-col gap-3 sm:gap-4 space-y-2">
     {
-      intro.features?.map((feature) => <FeaturePill feature={feature} />)
+      intro.features?.map((feature) => <Features feature={feature} />)
     }
   </div>
 </section>
