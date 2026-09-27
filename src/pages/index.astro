@@ -1,8 +1,4 @@
 ---
-import CaseStudyGrid from "../components/CaseStudyGrid.astro";
-import Hero from "../components/Hero.astro";
-import IntroSection from "../components/IntroSection.astro";
-import StatsBand from "../components/StatsBand.astro";
 import Layout from "../layouts/Layout.astro";
 import {getSuccessStoriesPage, getSiteSettings} from "../lib/getData";
 import type { SuccessStoriesPage, SiteSettings } from "../lib/types";
@@ -77,10 +73,7 @@ console.log("result");
 ) : (
 
     <Layout seo={result.page.seo} settings={result.settings}>
-      <Hero hero={result.page.hero} />
-      <IntroSection intro={result.page.intro} />
-      <StatsBand stats={result.page.stats} />
-      <CaseStudyGrid cards={result.page.caseStudies} />
+
     </Layout>
 )}
 
