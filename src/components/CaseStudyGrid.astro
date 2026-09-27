@@ -1,0 +1,15 @@
+---
+import type { CaseStudyCard as CaseStudyCardType } from '../lib/types';
+import CaseStudyCard from './CaseStudyCard.astro';
+
+interface Props {
+  cards: CaseStudyCardType[];
+}
+
+const { cards } = Astro.props;
+---
+<section class="bg-gray-50 py-12 sm:py-16 md:py-20">
+  <div class="mx-auto max-w-7xl px-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {cards.map((card) => <CaseStudyCard card={card} />)}
+  </div>
+</section>
