@@ -1,0 +1,43 @@
+---
+
+import { type NavLink } from '../lib/types';
+
+
+interface Props {
+  items: NavLink[];
+}
+
+const { items } = Astro.props;
+---
+
+<div
+  class="invisible absolute left-0 top-full z-50 min-w-[260px] rounded-xl bg-white p-2 opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.12)] transition-opacity duration-150 group-hover/navitem:visible group-hover/navitem:opacity-100"
+>
+  {
+    items.map((item) => (
+      <div class:list={["relative", item.children && "group/nested"]}>
+        <a
+          href={item.url}
+          class="flex items-center justify-between gap-4 rounded-lg px-3 py-2 text-sm text-[#2C2C2C] transition-colors hover:bg-[#F4F4F4]"
+        >
+          <span>{item.label}</span>
+          <span aria-hidden="true">{item.children ? "›" : "→"}</span>
+        </a>
+
+        {item.children && item.children?.length > 0 && (
+          <div class="invisible absolute left-full top-0 z-50 min-w-[260px] rounded-xl bg-white p-2 opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.12)] transition-opacity duration-150 group-hover/nested:visible group-hover/nested:opacity-100">
+            {item.children.map((child) => (
+              <a
+                href={child.url}
+                class="flex items-center justify-between gap-4 rounded-lg px-3 py-2 text-sm text-[#2C2C2C] transition-colors hover:bg-[#F4F4F4]"
+              >
+                <span>{child.label}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>
