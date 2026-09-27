@@ -1,0 +1,149 @@
+---
+import type { SiteSettings } from '../lib/types';
+import FooterColumn from './FooterColumn.astro';
+import Icon from './Icon.astro';
+import { urlFor } from '../lib/sanity';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  settings: SiteSettings | null;
+}
+
+const { settings } = Astro.props;
+const columns = settings?.footerColumns ?? [];
+const legalLinks = settings?.legalLinks ?? [];
+const socialIconMap: Record<string, 'linkedin' | 'facebook' | 'whatsapp'> = {
+  linkedin: 'linkedin',
+  facebook: 'facebook',
+  whatsapp: 'whatsapp',
+};
+const social = (settings?.socialLinks ?? []).filter((s) => socialIconMap[s.platform.toLowerCase()]);
+const year = new Date().getFullYear();
+
+---
+<footer class="bg-primary text-white">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+
+    <!-- Top -->
+    <div class="grid gap-12 md:grid-cols-[1.6fr_1fr_1fr_1fr_2fr]">
+
+      <!-- Logo -->
+      <div>
+        {settings?.footerLogo?.asset && (
+          <img
+            src={urlFor(settings.footerLogo).width(260).height(105).url()}
+            alt={settings.footerLogo.alt || 'Footer Logo'}
+            class="h-12 w-auto"
+          />
+        )}
+        {settings?.footerOutro && 
+          <p class="mt-6 text-slate-300 leading-7 text-sm max-w-xs">
+            {settings.footerOutro}
+          </p>
+        }
+
+        <div>
+          <div class="mt-8">
+            <div class="flex flex-wrap gap-5">
+              <a href="https://www.google.com/partners/agency?id=7750581358" target="_blank">
+                {settings?.googleIcon?.asset && (
+                  <img
+                    src={urlFor(settings.googleIcon).width(56).height(56).url()}
+                    alt={settings.googleIcon.alt || 'Certification badge'}
+                    width="56"
+                    height="56"
+                    loading="lazy"
+                    class="h-20 w-auto opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0"
+                  /> // mt-5 rounded
+                )}
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {columns.map((column) => <FooterColumn column={column} />)}
+
+      <!-- Office Locations -->
+      <div class="border-l border-white/10 pl-8 space-y-8">
+        <h6 class="mb-5 font-semibold text-md tracking-wide">Contact</h6>
+        <div class="flex items-start gap-4">
+
+          <!-- Contact & Social -->
+          <div>
+            <!-- Contact -->
+            <div class="space-y-5">
+
+              <!-- Email -->
+              {settings?.contactEmail && (
+                  <a href={`mailto:${settings.contactEmail}`} class="group flex items-center gap-3 text-sm text-slate-300 transition hover:text-white">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all group-hover:border-primary group-hover:bg-primary">
+                      <Icon name="mail" class="mt-0.5 shrink-0" />
+                    </span>
+                    <span>{settings.contactEmail}</span>
+                  </a>
+              )}
+
+              <!-- Phone -->
+              {settings?.contactPhone && (
+                <a href={`tel:${settings.contactPhone.replace(/\s+/g, '')}`} class="group flex items-center gap-3 text-sm text-slate-300 transition hover:text-white">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all group-hover:border-primary group-hover:bg-primary">
+                      <Icon name="phone" class="mt-0.5 shrink-0" />
+                    </span>
+                    <span>{settings.contactPhone}</span>
+                  </a>
+              )}
+
+              <!-- Office -->
+              <div class="flex items-start gap-4">
+                {settings?.contactAddress && (
+                  <div class="flex pt-1 items-center justify-center rounded-full">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all group-hover:border-[#004681] group-hover:bg-[#004681]">
+                      <Icon name="pin" class="mt-0.5 shrink-0" />
+                    </span>
+                  </div>
+
+                  <div>
+                    <p class="whitespace-pre-line text-slate-300 text-sm leading-7">
+                      {settings.contactAddress}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+            </div>
+            <!-- Social -->
+             {social.length > 0 && (
+              <div class="mt-8">
+                <h5 class="mb-4 text-xs tracking-[0.25em] text-slate-300">
+                  Follow Us
+                </h5>
+
+                <div class="flex gap-3">
+                  {social.map((s) => (
+                    <SocialLinks link={s}/>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="mt-14 border-t border-white/10 pt-6 flex flex-col justify-between items-center gap-4 lg:flex-row">
+        <div class="flex justify-center flex-wrap gap-6 text-xs">
+          {legalLinks.map((link) => <a href={link.url} class="text-slate-300 text-center hover:text-white">{link.label}</a>)}
+        </div>
+
+        <div class="text-xs text-slate-300 text-center lg:text-right">
+          {settings?.copyrightText ?? `© ${year} RightDirect. All rights reserved.`}
+        </div>
+    </div>
+    
+  </div>
+</footer>
