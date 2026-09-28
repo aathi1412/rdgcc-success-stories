@@ -17,6 +17,7 @@ const socialStyles: Record<string, string> = {
 const { link } = Astro.props;
 
 const platform = link.platform.toLowerCase();
+console.log(`${platform}.svg`)
 ---
 <div>
   <a
@@ -31,6 +32,6 @@ const platform = link.platform.toLowerCase();
       socialStyles[platform],
     ]}
   >
-    <img src=`${platform}.svg` alt={link.platform} class="h-8 w-8">      
+    <img src=src={`/${platform}.svg`} alt={link.platform} class="h-8 w-8">      
   </a>  
 </div>
