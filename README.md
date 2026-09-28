@@ -98,8 +98,3 @@ No contribution guidelines are defined in this repository.
 
 ## License
 
-<<<<<<< HEAD
-No license file is included in this repository.
-=======
-No license file is included in this repository.
->>>>>>> 3a1c3c887751b3f5420e08dfcaa7df0609809de6
