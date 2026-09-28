@@ -71,11 +71,11 @@ GROQ queries
     ↓
 Sanity client
     ↓
-Astro pages
+Astro pages & components
     ↓
-Reusable Astro components
+HTML + Tailwind CSS
     ↓
-Tailwind CSS
+Browser
 ```
 
 ### Directory Structure
@@ -111,17 +111,11 @@ Sanity project configuration is provided through environment variables and is no
 The Success Stories page uses Sanity CMS for editable content, including:
 
 * Site settings
+* SEO metadata
 * Navigation and dropdown links
 * Header CTA
 * Success Stories content
-* Case study cards
-* Case study images and alt text
-* Feature icons
-* Case study icons
-* CTA labels and URLs
-* SEO metadata
 * Footer content
-* Social links
 
 The frontend consumes this content through GROQ queries rather than hardcoding the CMS-managed page content.
 
@@ -135,13 +129,12 @@ The Sanity Studio requires authentication for access. Sanity project access can 
 
 ## Assumptions
 
-* Node.js >= 22.12.0 and npm are available locally.
-* A Sanity project with the required `production` dataset already exists.
-* The frontend has read access to the configured Sanity dataset.
-* Environment-specific configuration is provided through `.env` and is not committed to the repository.
-* The Sanity Studio is maintained separately from the Astro frontend.
-* The implementation focuses on the RightDirect `/success-stories` page selected for the technical assessment.
-* Where implementation details were not directly available from the source page, reasonable assumptions were made while maintaining consistency with the existing design.
+- The implementation focuses on the RightDirect `/success-stories` page selected for the technical assessment.
+- Content intended to be editable is managed through Sanity CMS.
+- Where the original website's implementation details were not available, a practical implementation was used while maintaining the visual design.
+- The frontend receives the Sanity project ID and dataset through environment variables.
+- The Sanity Studio is maintained separately from the Astro frontend.
+- Environment-specific configuration is provided through `.env` and is not committed to the repository.
 
 ## License
 
