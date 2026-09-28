@@ -1,0 +1,54 @@
+---
+import { type NavLink } from '../../lib/types';
+
+interface Props {
+  items: NavLink[];
+}
+
+const { items } = Astro.props;
+
+// Sub-link pill. Arrow hidden until hover/focus.
+const linkClass =
+  "group/link flex items-center justify-between gap-4 rounded-full px-4 py-2.5 text-base text-[#2C2C2C] transition-[background-color,color] duration-200 ease-out hover:bg-[#EAF0F7] hover:font-medium hover:text-[#004681] focus-visible:bg-[#EAF0F7] focus-visible:font-medium focus-visible:text-[#004681] focus-visible:outline-none motion-reduce:transition-none";
+
+// nested sub-link pill. Arrow hidden until hover/focus.
+const parentRowClass =
+  "group-hover/nested:bg-[#EAF0F7] group-hover/nested:font-medium group-hover/nested:text-[#004681] group-focus-within/nested:bg-[#EAF0F7] group-focus-within/nested:font-medium group-focus-within/nested:text-[#004681]";
+
+// text transform
+const labelClass =
+  "inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:translate-x-1.5 group-focus-visible/link:translate-x-1.5 motion-reduce:transition-none motion-reduce:transform-none";
+
+const arrowClass =
+  "shrink-0 -translate-x-1 text-xl leading-none text-[#004681] opacity-0 transition-[opacity,transform] duration-300 ease-out group-hover/link:translate-x-0 group-hover/link:opacity-100 group-focus-visible/link:translate-x-0 group-focus-visible/link:opacity-100 group-hover/nested:translate-x-0 group-hover/nested:opacity-100 group-focus-within/nested:translate-x-0 group-focus-within/nested:opacity-100 motion-reduce:transition-none";
+---
+<div
+  class="invisible absolute left-0 top-[calc(100%+0.75rem)] z-50 min-w-[280px] translate-y-1 rounded-xl border border-[#E9EDF2] bg-white p-2 opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.12)] transition-[opacity,transform,visibility] duration-200 ease-out before:absolute before:inset-x-0 before:-top-8 before:h-8 before:content-[''] group-hover/navitem:visible group-hover/navitem:translate-y-0 group-hover/navitem:opacity-100 group-hover/navitem:delay-150 group-focus-within/navitem:visible group-focus-within/navitem:translate-y-0 group-focus-within/navitem:opacity-100 motion-reduce:transition-none 2xl:top-[calc(100%+1.25rem)]"
+>
+  {
+    items.map((item) => {
+      const hasChildren = item.children && item.children.length > 0;
+      return (
+        <div class:list={["relative", hasChildren && "group/nested"]}>
+          <a href={item.url} class:list={[linkClass, hasChildren && parentRowClass]}>
+            <span class={labelClass}>{item.label}</span>
+            <span aria-hidden="true" class={arrowClass}>
+              {hasChildren ? "›" : "→"}
+            </span>
+          </a>
+
+          {hasChildren && (
+            <div class="invisible absolute left-[calc(100%+1.125rem)] -top-2.25 z-50 min-w-70 translate-x-1 rounded-2xl border border-[#E9EDF2] bg-white p-2 opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.12)] transition-[opacity,transform,visibility] duration-200 ease-out before:absolute before:-left-6 before:top-0 before:h-full before:w-6 before:content-[''] group-hover/nested:visible group-hover/nested:translate-x-0 group-hover/nested:opacity-100 group-hover/nested:delay-150 group-focus-within/nested:visible group-focus-within/nested:translate-x-0 group-focus-within/nested:opacity-100 motion-reduce:transition-none">
+              {item.children?.map((child) => (
+                <a href={child.url} class={linkClass}>
+                  <span class={labelClass}>{child.label}</span>
+                  <span aria-hidden="true" class={arrowClass}>→</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    })
+  }
+</div>
