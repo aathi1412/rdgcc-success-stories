@@ -24,16 +24,21 @@ const { card } = Astro.props;
       <div class="h-44 bg-slate-100 rounded-lg relative overflow-hidden mb-5 border border-slate-200/60">
         <img
           src={urlFor(card.image)
-            .width(400)
-            .height(240)
+            .width(600)
+            .height(360)
             .fit('crop')
             .quality(80)
             .url()}
+          srcset={`
+            ${urlFor(card.image).width(300).height(180).fit('crop').quality(80).url()} 300w,
+            ${urlFor(card.image).width(600).height(360).fit('crop').quality(80).url()} 600w
+          `}
+          sizes="(max-width: 768px) 100vw, 291px"
           alt={card.image.alt || `${card.company} project photo`}
-          width="400"
-          height="240"
+          width="300"
+          height="180"
           loading="lazy"
-          class="w-full h-full  rounded-xl object-cover"
+          class="w-full h-full rounded-xl object-cover"
         />
         
       </div>
