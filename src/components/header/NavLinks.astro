@@ -1,0 +1,50 @@
+---
+import type { NavLink } from '../../lib/types';
+import NavDropdown from './NavDropdown.astro';
+
+interface Props {
+  links: NavLink[];
+  currentPath?: string;
+}
+
+const { links, currentPath = ''} = Astro.props;
+---
+
+<nav aria-label="Main Navigation" class="hidden items-center gap-1 whitespace-nowrap lg:flex 2xl:gap-2">
+  {
+    links.map((item) => {
+      const isActive = item.url === currentPath;
+      const hasChildren = item.children && item.children.length > 0;
+      return (
+        <div class="group/navitem relative">
+          <a
+            href={item.url}
+            aria-current={isActive ? "page" : undefined}
+            class:list={[
+              "flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-2 text-sm leading-[22px] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004681] 2xl:px-4 2xl:text-base",
+              isActive
+                ? "bg-[#E8F0F8] font-semibold text-[#004681]"
+                : "font-medium text-[#1F2937] hover:bg-[#EAF2FA] hover:text-[#004681]",
+            ]}
+          >
+            <span>{item.label}</span>
+            {hasChildren && (
+              <svg
+                class="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-hover/navitem:rotate-180 group-focus-within/navitem:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            )}
+          </a>
+
+          {hasChildren && <NavDropdown items={item.children ?? []} />}
+        </div>
+      );
+    })
+  }
+</nav>
