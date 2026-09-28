@@ -1,7 +1,6 @@
 ---
-import type { CaseStudyCard } from '../lib/types';
-import { urlFor } from '../lib/sanity';
-import Button from './Button.astro';
+import type { CaseStudyCard } from '../../lib/types';
+import { urlFor } from '../../lib/sanity';
 import CaseStudyIcon from './CaseStudyIcon.astro';
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
 const { card } = Astro.props;
 ---
 <article class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
-  <!-- rounded-2xl bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] sm:p-6 -->
   <div class="flex flex-col flex-1">
 
     <p class="text-xs text-[#003A6B] font-medium tracking-wide">
@@ -37,7 +35,7 @@ const { card } = Astro.props;
           loading="lazy"
           class="w-full h-full  rounded-xl object-cover"
         />
-        {/* mt-4 aspect-5/3 for img */}
+        
       </div>
     ) : (
       <div
@@ -46,27 +44,19 @@ const { card } = Astro.props;
       ></div>
     )}
     <!-- Case study icon -->
-     <!-- mt-4 size-8 shrink-0 -->
     <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white mb-4 shadow-sm">
       <CaseStudyIcon name={card.icon} />
     </div>
 
-    <!-- mt-4 text-brand sm:text-lg -->
     <h4 class="font-medium text-xl text-[#004681] leading-snug mb-3 min-h-[56px]">
       {card.title}
     </h4>
 
-    <!-- mt-2 flex-1 -->
     <p class="text-sm md:text-base text-[#2C2C2C] leading-relaxed text-left">
       {card.description}
     </p>
 
     {card.link && (
-      // <Button
-      //   cta={card.link}
-      //   variant="link"
-      //   class="mt-5 self-start"
-      // />
       <div class="mt-auto pt-6">
         <a 
           href={card.link.url} 
