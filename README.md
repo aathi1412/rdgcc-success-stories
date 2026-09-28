@@ -128,7 +128,7 @@ The frontend consumes this content through GROQ queries rather than hardcoding t
 ## Deployment
 
 * GitHub repository: https://github.com/aathi1412/rdgcc-success-stories
-* Live website: https://app.netlify.com/projects/rdgcc/overview
+* Live website: https://rdgcc.netlify.app/success-stories/
 The Astro frontend and Sanity Studio are deployed and maintained separately.
 
 The Sanity Studio requires authentication for access. Sanity project access can be granted to reviewers when required.
