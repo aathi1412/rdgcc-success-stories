@@ -1,6 +1,5 @@
 ---
 import type { SocialLink } from "../../lib/types";
-import Icon from "./Icon.astro";
 
 interface Props {
   link: SocialLink;
@@ -13,12 +12,6 @@ const socialStyles: Record<string, string> = {
     "hover:-translate-y-1 hover:border-[#1877F2] hover:bg-[#1877F2]",
   whatsapp:
     "hover:-translate-y-1 hover:border-green-500 hover:bg-green-500",
-};
-
-const socialIconMap: Record<string, string> = {
-  linkedin: "linkedin",
-  facebook: "facebook",
-  whatsapp: "whatsapp",
 };
 
 const { link } = Astro.props;
@@ -38,6 +31,6 @@ const platform = link.platform.toLowerCase();
       socialStyles[platform],
     ]}
   >
-    <img src=`${socialIconMap[platform]}.svg` alt={link.platform} class="h-8 w-8">      
+    <img src=`${platform}.svg` alt={link.platform} class="h-8 w-8">      
   </a>  
 </div>
