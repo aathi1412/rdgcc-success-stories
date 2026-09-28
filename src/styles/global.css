@@ -7,7 +7,24 @@
     --font-body: "Inter", sans-serif;
     --color-primary: #004681;
     --color-hero: #0a2240;
-    /* --text-primary: #2c2c2c;
-    --text-secondary: #F4F4F4; */
+}
+
+@layer base {
+  /* html {
+    font-size: 23px;
+  } */
+
+  body {
+    font-family: var(--font-body);
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
 }
 
