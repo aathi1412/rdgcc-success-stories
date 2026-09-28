@@ -1,5 +1,4 @@
-# RightDirect Success Stories
-
+# RightDirect Assessment
 An Astro frontend for the RightDirect Success Stories page, with content sourced from Sanity CMS. The Sanity Studio is maintained as a separate project and is not part of this repository.
 
 ## Tech Stack
