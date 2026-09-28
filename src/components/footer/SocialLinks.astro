@@ -25,21 +25,19 @@ const { link } = Astro.props;
 
 const platform = link.platform.toLowerCase();
 ---
-
-
-      <a
-        href={link.url}
-        aria-label={link.platform}
-        target="_blank"
-        rel="noopener noreferrer"
-        class:list={[
-          "flex h-11 w-11 items-center justify-center rounded-full",
-          "border border-white/10 bg-white/5",
-          "transition-all duration-300",
-          socialStyles[platform],
-        ]}
-      >
-        <img src=`${platform}.svg` alt={link.platform} class="h-8 w-8">      
-    </a>
-    
+<div>
+  <a
+    href={link.url}
+    aria-label={link.platform}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={[
+      "flex h-11 w-11 items-center justify-center rounded-full",
+      "border border-white/10 bg-white/5",
+      "transition-all duration-300",
+      socialStyles[platform],
+    ]}
+  >
+    <img src=`${socialIconMap[platform]}.svg` alt={link.platform} class="h-8 w-8">      
+  </a>  
 </div>
