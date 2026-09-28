@@ -7,35 +7,7 @@ interface Props {
 }
 
 const { intro } = Astro.props;
-console.log("Intro:", intro?.features?.at(0)?.icon);
 ---
-<!-- <section class="mx-auto max-w-7xl px-6 py-16 sm:py-16 md:py-20 grid gap-10 md:gap-12 lg:grid-cols-2 items-start bg-[#F8FAFC]">
-  <div>
-    <div class="flex items-center gap-3 mb-6">
-      <div class="w-8 h-0.5 bg-primary" aria-hidden="true"></div>
-      {intro.eyebrow && (
-        <span class="text-sm font-semibold tracking-wider text-primary">
-          {intro.eyebrow}
-        </span>
-      )}
-    </div>
-
-    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-primary leading-tight text-balance">
-      {intro.heading}
-    </h2>
-
-    {intro.description && (
-      <p class="mt-5 sm:mt-6 text-base sm:text-lg leading-relaxed text-[#2C2C2C] max-w-xl">
-        {intro.description}
-      </p>
-    )}
-  </div>
-
-  <div class="flex flex-col gap-3 sm:gap-4">
-    {intro.features?.map((feature) => <Features feature={feature} />)}
-  </div>
-</section> -->
-
 
 <section class="py-20 bg-[#F8FAFC]">
     <div class="max-w-7xl mx-auto px-6">
