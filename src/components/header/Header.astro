@@ -12,7 +12,7 @@ const { settings, currentPath = '' } = Astro.props;
 const navLinks = settings?.navLinks ?? [];
 const cta = settings?.headerCta;
 ---
-<header id="site-header" class="absolute inset-x-0 top-0 z-[100] lg:fixed">
+<header id="site-header" class="fixed inset-x-0 top-0 z-[100]">
   <div
     id="header-inner"
     class="relative flex h-19 items-center bg-white px-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[border-radius,box-shadow,margin,width] duration-300 ease-out sm:px-6 lg:h-20 2xl:h-24 2xl:px-7"
@@ -55,14 +55,15 @@ const cta = settings?.headerCta;
       </div>
     )}
 
-    <!-- Mobile menu trigger -->
+    <!-- Mobile menu trigger (wired to MobileNav.astro) -->
     <button
-      id="nav-toggle"
+      id="mobile-menu-button"
       type="button"
-      class="ml-auto flex h-11 w-11 items-center justify-center rounded-lg text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004681] lg:hidden"
-      aria-label="Toggle menu"
+      class="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-[#004681] transition-[background-color,transform] duration-200 hover:bg-[#EAF2FA] active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004681] motion-reduce:transition-none lg:hidden"
+      aria-label="Open menu"
+      aria-haspopup="dialog"
       aria-expanded="false"
-      aria-controls="mobile-nav"
+      aria-controls="mobile-menu"
     >
       <svg width="24" height="24" viewBox="0 0 22 16" fill="none" aria-hidden="true">
         <path d="M1 1h20M1 8h20M1 15h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -112,29 +113,27 @@ const cta = settings?.headerCta;
 </style>
 
 <script>
+  // Floating pill on scroll: desktop only, only touches the DOM when the state changes.
   const header = document.getElementById('header-inner');
-  const toggle = document.getElementById('nav-toggle');
-  const menu = document.getElementById('mobile-nav');
-
-  // Floating pill on scroll (throttled with rAF)
+  const desktop = window.matchMedia('(min-width: 1024px)');
+  let scrolled = false;
   let ticking = false;
-  function updateHeader() {
-    header?.classList.toggle('is-scrolled', window.scrollY > 24);
+
+  function update() {
     ticking = false;
+    const next = desktop.matches && window.scrollY > 24;
+    if (next !== scrolled) {
+      scrolled = next;
+      header?.classList.toggle('is-scrolled', next);
+    }
   }
+
   window.addEventListener('scroll', () => {
     if (!ticking) {
-      requestAnimationFrame(updateHeader);
       ticking = true;
+      requestAnimationFrame(update);
     }
   }, { passive: true });
-  updateHeader();
-
-  // Mobile menu
-  toggle?.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    menu?.classList.toggle('hidden');
-    menu?.classList.toggle('flex');
-  });
+  desktop.addEventListener('change', update);
+  update();
 </script>
