@@ -1,0 +1,140 @@
+---
+import type { SiteSettings } from '../../lib/types';
+import MobileNav from './MobileNav.astro';
+import NavLinks from "./NavLinks.astro";
+
+interface Props {
+    settings: SiteSettings | null;
+    currentPath?: string;
+}
+
+const { settings, currentPath = '' } = Astro.props;
+const navLinks = settings?.navLinks ?? [];
+const cta = settings?.headerCta;
+---
+<header id="site-header" class="absolute inset-x-0 top-0 z-[100] lg:fixed">
+  <div
+    id="header-inner"
+    class="relative flex h-19 items-center bg-white px-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[border-radius,box-shadow,margin,width] duration-300 ease-out sm:px-6 lg:h-20 2xl:h-24 2xl:px-7"
+  >
+    <!-- Logo -->
+    <a href="/" aria-label="RightDirect home" class="shrink-0">
+      <img
+        src="https://cdn.sanity.io/images/5twaxtv5/production/dec60c1e06fa94ef47a1a489f73dfdcad5a59bf3-676x106.svg?w=400&auto=format"
+        alt="RightDirect"
+        width="676"
+        height="106"
+        fetchpriority="high"
+        decoding="async"
+        class="h-auto w-[175px] lg:w-[220px]"
+      />
+    </a>
+
+    <!-- Desktop nav: never wraps, never shrinks -->
+    <div class="hidden min-w-0 flex-1 justify-center whitespace-nowrap px-4 lg:flex">
+      <NavLinks links={navLinks} currentPath={currentPath} />
+    </div>
+
+    <!-- Divider + CTA: pinned to the far right (ml-auto).
+         The wrapper's width grows with the viewport and uncovers them; logo and nav never move. -->
+    {cta && (
+      <div class="cta-clip -my-3 ml-auto hidden shrink-0 items-center overflow-hidden py-3 lg:flex">
+        <span aria-hidden="true" class="mr-4 h-9 w-px shrink-0 bg-[#E3E8EE] 2xl:mr-5 2xl:h-10"></span>
+        <a
+          href={cta.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/cta flex h-11 w-44 shrink-0 items-center justify-between gap-2 whitespace-nowrap rounded-full bg-[#004681] px-5 text-[15px] font-semibold text-white no-underline shadow-[0_6px_12px_-4px_rgba(0,70,129,0.35)] transition-colors duration-200 hover:bg-[#003a6b] focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white 2xl:h-13 2xl:w-52 2xl:px-7 2xl:text-base"
+        >
+          <span>{cta.label}</span>
+          <span
+            aria-hidden="true"
+            class="text-xl leading-none transition-transform duration-200 group-hover/cta:translate-x-1 2xl:text-[22px]"
+          >→</span>
+        </a>
+      </div>
+    )}
+
+    <!-- Mobile menu trigger -->
+    <button
+      id="nav-toggle"
+      type="button"
+      class="ml-auto flex h-11 w-11 items-center justify-center rounded-lg text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004681] lg:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <svg width="24" height="24" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+        <path d="M1 1h20M1 8h20M1 15h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <MobileNav cta={cta} links={navLinks} currentPath={currentPath} />
+</header>
+
+<style>
+  #header-inner {
+    width: 100%;
+    margin-inline: auto;
+    margin-top: 0;
+    border-radius: 0;
+  }
+
+  @media (min-width: 1024px) {
+    #header-inner.is-scrolled {
+      width: calc(100% - 2rem);
+      margin-top: 0.75rem;
+      border-radius: 9999px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  /* Reveal: 0px at 1024px, grows 1:1 with the viewport up to the full divider + button width.
+     Compact: 1px divider + 16px gap + 176px button = 193px */
+  .cta-clip {
+    width: clamp(0px, calc(100vw - 1024px), 12.0625rem);
+  }
+
+  /* Target size (2xl): 1px divider + 20px gap + 208px button = 229px */
+  @media (min-width: 1536px) {
+    .cta-clip {
+      width: 14.3125rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #header-inner,
+    #header-inner * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('header-inner');
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-nav');
+
+  // Floating pill on scroll (throttled with rAF)
+  let ticking = false;
+  function updateHeader() {
+    header?.classList.toggle('is-scrolled', window.scrollY > 24);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateHeader();
+
+  // Mobile menu
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
+  });
+</script>
