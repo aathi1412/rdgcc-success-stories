@@ -7,7 +7,7 @@ import sanity from '@sanity/astro';
 const env = loadEnv('development', process.cwd(), '');
 
 export default defineConfig({
-    site: 'https://rdgcc.netlify.app',
+    site: 'https://rdgcc.netlify.app/success-stories/',
 
     integrations: [
         sanity({
