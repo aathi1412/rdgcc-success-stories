@@ -1,47 +1,117 @@
 ---
 import '../styles/global.css';
-import Header from '../components/Header.astro';
+import Footer from '../components/footer/Footer.astro';
 import type { SiteSettings, Seo } from '../lib/types';
-import Footer from '../components/Footer.astro';
 import { urlFor } from '../lib/sanity';
-
+import Header from '../components/Header/Header.astro';
 
 interface Props {
   seo?: Seo;
   settings: SiteSettings | null;
 }
 
-
 const { seo, settings } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = settings?.logo?.asset
-? urlFor(settings.logo).width(1200).height(630).fit('crop').url()
-: undefined;
 
+const title = seo?.title ?? 'RightDirect';
+const description = seo?.description;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site ?? Astro.url.origin
+).href;
+
+const ogImageURL = settings?.logo?.asset
+  ? urlFor(settings.logo)
+      .width(1200)
+      .height(630)
+      .fit('crop')
+      .url()
+  : undefined;
+
+  console.log(Astro.url.pathname);
 ---
+
 <html lang="en">
   <head>
+    <!-- Basic -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://cdn.sanity.io" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{seo?.title ?? 'RightDirect'}</title>
-    {seo?.description && <meta name="description" content={seo.description} />}
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+
+    {description && (
+      <meta name="description" content={description} />
+    )}
+
     <link rel="canonical" href={canonicalURL} />
 
-    {seo?.title && <meta property="og:title" content={seo.title} />}
-    {seo?.description && <meta property="og:description" content={seo.description} />}
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+
+    {description && (
+      <meta property="og:description" content={description} />
+    )}
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
-    <meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
+    <meta property="og:site_name" content="RightDirect" />
+
+    {ogImageURL && (
+      <meta property="og:image" content={ogImageURL} />
+    )}
+
+    <!-- Twitter -->
+    <meta
+      name="twitter:card"
+      content={ogImageURL ? 'summary_large_image' : 'summary'}
+    />
+
+    <meta name="twitter:title" content={title} />
+
+    {description && (
+      <meta name="twitter:description" content={description} />
+    )}
+
+    {ogImageURL && (
+      <meta name="twitter:image" content={ogImageURL} />
+    )}
+
+    <!-- Performance -->
+    <link
+      rel="preconnect"
+      href="https://cdn.sanity.io"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="min-h-screen flex flex-col font-sans text-gray-900">
-    <Header settings={settings} currentPath={Astro.url.pathname} />
+
+  <body class="min-h-screen flex flex-col text-gray-900">
+    <Header
+      settings={settings}
+      currentPath={Astro.url.pathname}
+    />
+
     <main class="flex-1">
       <slot />
     </main>
+
     <Footer settings={settings} />
   </body>
 </html>
-
