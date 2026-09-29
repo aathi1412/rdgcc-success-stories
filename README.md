@@ -137,4 +137,4 @@ The Sanity Studio requires authentication for access. Sanity project access can 
 
 ## License
 
-No license is specified in the repository. This project was created for a technical assessment.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
