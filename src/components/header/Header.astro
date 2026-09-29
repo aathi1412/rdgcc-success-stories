@@ -2,6 +2,7 @@
 import type { SiteSettings } from "../../lib/types";
 import MobileNav from "./MobileNav.astro";
 import NavLinks from "./NavLinks.astro";
+import { urlFor } from "../../lib/sanity";
 
 interface Props {
   settings: SiteSettings | null;
@@ -12,10 +13,10 @@ const { settings, currentPath = "" } = Astro.props;
 const navLinks = settings?.navLinks ?? [];
 const cta = settings?.headerCta;
 
-const normalizePath = (path: string) =>
+const fixPath = (path: string) =>
   path === "/" ? "/" : path.replace(/\/$/, "");
 
-const current = normalizePath(currentPath);
+const current = fixPath(currentPath);
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-100">
@@ -25,8 +26,9 @@ const current = normalizePath(currentPath);
   >
     <!-- Logo -->
     <a href="/" aria-label="RightDirect home" class="shrink-0">
-      <img
-        src="https://cdn.sanity.io/images/5twaxtv5/production/dec60c1e06fa94ef47a1a489f73dfdcad5a59bf3-676x106.svg?w=400&auto=format"
+      {settings?.siteLogo?.asset && (
+        <img
+        src={urlFor(settings.siteLogo).width(676).height(106).url()}
         alt="RightDirect"
         width="676"
         height="106"
@@ -34,6 +36,7 @@ const current = normalizePath(currentPath);
         decoding="async"
         class="h-auto w-43.75 lg:w-55"
       />
+      )}
     </a>
 
     <!-- Desktop nav: never wraps, never shrinks -->
