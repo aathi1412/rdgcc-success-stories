@@ -11,6 +11,11 @@ interface Props {
 const { settings, currentPath = "" } = Astro.props;
 const navLinks = settings?.navLinks ?? [];
 const cta = settings?.headerCta;
+
+const normalizePath = (path: string) =>
+  path === "/" ? "/" : path.replace(/\/$/, "");
+
+const current = normalizePath(currentPath);
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-100">
@@ -33,7 +38,7 @@ const cta = settings?.headerCta;
 
     <!-- Desktop nav: never wraps, never shrinks -->
     <div class="hidden min-w-0 flex-1 justify-center whitespace-nowrap px-4 lg:flex">
-      <NavLinks links={navLinks} currentPath={currentPath} />
+      <NavLinks links={navLinks} currentPath={current} />
     </div>
 
     <!-- CTA -->
