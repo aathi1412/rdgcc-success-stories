@@ -25,7 +25,7 @@ const current = fixPath(currentPath);
     class="relative flex h-19 items-center bg-white px-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[border-radius,box-shadow,margin,width] duration-300 ease-out sm:px-6 lg:h-20 2xl:h-24 2xl:px-7"
   >
     <!-- Logo -->
-    <a href="/" aria-label="RightDirect home" class="shrink-0">
+    <a href="/success-stories" aria-label="RightDirect home" class="shrink-0">
       {settings?.siteLogo?.asset && (
         <img
         src={urlFor(settings.siteLogo).width(676).height(106).url()}
@@ -68,17 +68,18 @@ const current = fixPath(currentPath);
       </div>
     )}
 
-    <!-- Mobile menu trigger -->
+    <!-- Mobile menu -->
     <button
       id="mobile-menu-button"
       type="button"
-      class="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-primary transition-[background-color,transform] duration-200 hover:bg-[#EAF2FA] active:scale-90 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none lg:hidden"
+      class="ml-auto flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full text-primary transition-[background-color,transform] duration-200 hover:bg-[#EAF2FA] active:scale-90 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none lg:hidden"
       aria-label="Open menu"
       aria-haspopup="dialog"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
       <svg
+        class="menu-icon"
         width="24"
         height="24"
         viewBox="0 0 22 16"
@@ -92,6 +93,21 @@ const current = fixPath(currentPath);
           stroke-linecap="round"
         />
       </svg>
+
+      <svg
+        class="close-icon hidden"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        width="26"
+        height="26"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </button>
   </div>
 
@@ -99,6 +115,19 @@ const current = fixPath(currentPath);
 </header>
 
 <style>
+  #mobile-menu-button.is-open .line-middle {
+    opacity: 0;
+  }
+
+  #mobile-menu-button.is-open .line-bottom {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #mobile-menu-button .hamburger-line {
+      transition: none;
+    }
+  }
   #header-inner {
     width: 100%;
     margin-inline: auto;
