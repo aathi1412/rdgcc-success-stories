@@ -1,39 +1,38 @@
-
 export interface SuccessStoriesPage {
-    hero: {
-        title: string;
-        subtitle?: string;
-        badgeIcon?: SanityImage;
-    };
-    intro: {
-        eyebrow?: string;
-        heading: string;
-        description?: string;
-        features?: Features[];
-    };
-    stats: {
-        heading?: string;
-        description?: string;
-        items?: StatItem[];
-    };
-    caseStudies: CaseStudyCard[];
-    seo?: Seo;
+  hero: {
+    title: string;
+    subtitle?: string;
+    badgeIcon?: SanityImage;
+  };
+  intro: {
+    eyebrow?: string;
+    heading: string;
+    description?: string;
+    features?: Features[];
+  };
+  stats: {
+    heading?: string;
+    description?: string;
+    items?: StatItem[];
+  };
+  caseStudies: CaseStudyCard[];
+  seo?: Seo;
 }
 
 export interface SiteSettings {
-    logo?: SanityImage;
-    googleIcon?: SanityImage;
-    navLinks?: NavLink[];
-    headerCta?: CtaButton;
-    footerLogo?: SanityImage;
-    footerOutro?: string;
-    footerColumns?: FooterColumn[];
-    contactEmail?: string;
-    contactPhone?: string;
-    contactAddress?: string;
-    socialLinks?: SocialLink[];
-    copyrightText?: string;
-    legalLinks?: FooterLink[];
+  logo?: SanityImage;
+  googleIcon?: SanityImage;
+  navLinks?: NavLink[];
+  headerCta?: CtaButton;
+  footerLogo?: SanityImage;
+  footerOutro?: string;
+  footerColumns?: FooterColumn[];
+  contactEmail?: string;
+  contactPhone?: string;
+  contactAddress?: string;
+  socialLinks?: SocialLink[];
+  copyrightText?: string;
+  legalLinks?: FooterLink[];
 }
 
 export interface SanityImage {

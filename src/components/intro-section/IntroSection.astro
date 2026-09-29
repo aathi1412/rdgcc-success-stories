@@ -1,40 +1,42 @@
 ---
-import type { SuccessStoriesPage } from '../../lib/types';
-import Features from './Features.astro';
+import type { SuccessStoriesPage } from "../../lib/types";
+import Features from "./Features.astro";
 
 interface Props {
-  intro: SuccessStoriesPage['intro'];
+  intro: SuccessStoriesPage["intro"];
 }
 
 const { intro } = Astro.props;
 ---
 
 <section class="py-20 bg-[#F8FAFC]">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-[7fr_3fr] gap-12 items-center">
-            <!-- Left Content -->
-            <div>
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-8 h-[2px] bg-[#004681]"></div>
-                    {intro.eyebrow && (
-                      <span class="text-sm font-semibold tracking-wider text-primary">
-                        {intro.eyebrow}
-                      </span>
-                    )}
-                </div>
-                <h2 class="text-[26px] md:text-[36px] font-semibold text-primary leading-tight">
-                  {intro.heading}
-                </h2>
-                {intro.description && (
-                  <p class="mt-8 text-lg leading-relaxed text-[#2C2C2C] max-w-xl">
-                    {intro.description}
-                  </p>
-                )}
-            </div>
-            <!-- Right Cards -->
-            <div class="space-y-5">
-              {intro.features?.map((feature) => <Features feature={feature} />)}
-            </div>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-[7fr_3fr] gap-12 items-center">
+      <!-- Left Content -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-[2px] bg-[#004681]"></div>
+          {intro.eyebrow && (
+            <span class="text-sm font-semibold tracking-wider text-primary">
+              {intro.eyebrow}
+            </span>
+          )}
         </div>
+        <h2 class="text-[26px] md:text-[36px] font-semibold text-primary leading-tight">
+          {intro.heading}
+        </h2>
+        {intro.description && (
+          <p class="mt-8 text-lg leading-relaxed text-[#2C2C2C] max-w-xl">
+            {intro.description}
+          </p>
+        )}
+      </div>
+      <!-- Right Cards -->
+      <div class="space-y-5">
+        {intro.features?.map((feature) => (
+          <Features feature={feature} />
+        ))}
+      </div>
     </div>
+  </div>
 </section>

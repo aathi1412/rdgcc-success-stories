@@ -1,17 +1,18 @@
 ---
-import type { SiteSettings } from '../../lib/types';
-import MobileNav from './MobileNav.astro';
+import type { SiteSettings } from "../../lib/types";
+import MobileNav from "./MobileNav.astro";
 import NavLinks from "./NavLinks.astro";
 
 interface Props {
-    settings: SiteSettings | null;
-    currentPath?: string;
+  settings: SiteSettings | null;
+  currentPath?: string;
 }
 
-const { settings, currentPath = '' } = Astro.props;
+const { settings, currentPath = "" } = Astro.props;
 const navLinks = settings?.navLinks ?? [];
 const cta = settings?.headerCta;
 ---
+
 <header id="site-header" class="fixed inset-x-0 top-0 z-100">
   <div
     id="header-inner"
@@ -38,7 +39,10 @@ const cta = settings?.headerCta;
     <!-- CTA -->
     {cta && (
       <div class="cta-clip -my-3 ml-auto hidden shrink-0 items-center overflow-hidden py-3 lg:flex">
-        <span aria-hidden="true" class="mr-4 h-9 w-px shrink-0 bg-[#E3E8EE] 2xl:mr-5 2xl:h-10"></span>
+        <span
+          aria-hidden="true"
+          class="mr-4 h-9 w-px shrink-0 bg-[#E3E8EE] 2xl:mr-5 2xl:h-10"
+        ></span>
         <a
           href={cta.url}
           target="_blank"
@@ -49,7 +53,9 @@ const cta = settings?.headerCta;
           <span
             aria-hidden="true"
             class="text-xl leading-none transition-transform duration-200 group-hover/cta:translate-x-1 2xl:text-[22px]"
-          >→</span>
+          >
+            →
+          </span>
         </a>
       </div>
     )}
@@ -64,8 +70,19 @@ const cta = settings?.headerCta;
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <svg width="24" height="24" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-        <path d="M1 1h20M1 8h20M1 15h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 22 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M1 1h20M1 8h20M1 15h20"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
       </svg>
     </button>
   </div>
@@ -90,7 +107,6 @@ const cta = settings?.headerCta;
     }
   }
 
-  
   .cta-clip {
     width: clamp(0px, calc(100vw - 1024px), 12.0625rem);
   }
@@ -110,8 +126,8 @@ const cta = settings?.headerCta;
 </style>
 
 <script>
-  const header = document.getElementById('header-inner');
-  const desktop = window.matchMedia('(min-width: 1024px)');
+  const header = document.getElementById("header-inner");
+  const desktop = window.matchMedia("(min-width: 1024px)");
   let scrolled = false;
   let ticking = false;
 
@@ -120,16 +136,20 @@ const cta = settings?.headerCta;
     const next = desktop.matches && window.scrollY > 24;
     if (next !== scrolled) {
       scrolled = next;
-      header?.classList.toggle('is-scrolled', next);
+      header?.classList.toggle("is-scrolled", next);
     }
   }
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }, { passive: true });
-  desktop.addEventListener('change', update);
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
+  desktop.addEventListener("change", update);
   update();
 </script>

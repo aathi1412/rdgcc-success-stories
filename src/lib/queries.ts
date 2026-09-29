@@ -1,4 +1,4 @@
-import groq from 'groq';
+import groq from "groq";
 
 export const successStoriesPageQuery = groq`
     *[_type == "successStoriesPage"][0]{

@@ -1,7 +1,7 @@
 ---
-import type { CaseStudyCard } from '../../lib/types';
-import { urlFor } from '../../lib/sanity';
-import CaseStudyIcon from './CaseStudyIcon.astro';
+import type { CaseStudyCard } from "../../lib/types";
+import { urlFor } from "../../lib/sanity";
+import CaseStudyIcon from "./CaseStudyIcon.astro";
 
 interface Props {
   card: CaseStudyCard;
@@ -9,16 +9,12 @@ interface Props {
 
 const { card } = Astro.props;
 ---
+
 <article class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
   <div class="flex flex-col flex-1">
+    <p class="text-xs text-[#003A6B] font-medium tracking-wide">{card.tag}</p>
 
-    <p class="text-xs text-[#003A6B] font-medium tracking-wide">
-      {card.tag}
-    </p>
-
-    <h3 class="font-bold text-[#003A6B] text-lg mt-0.5 mb-4">
-      {card.company}
-    </h3>
+    <h3 class="font-bold text-[#003A6B] text-lg mt-0.5 mb-4">{card.company}</h3>
 
     {card.image?.asset ? (
       <div class="h-44 bg-slate-100 rounded-lg relative overflow-hidden mb-5 border border-slate-200/60">
@@ -26,12 +22,12 @@ const { card } = Astro.props;
           src={urlFor(card.image)
             .width(600)
             .height(360)
-            .fit('crop')
+            .fit("crop")
             .quality(80)
             .url()}
           srcset={`
-            ${urlFor(card.image).width(300).height(180).fit('crop').quality(80).url()} 300w,
-            ${urlFor(card.image).width(600).height(360).fit('crop').quality(80).url()} 600w
+            ${urlFor(card.image).width(300).height(180).fit("crop").quality(80).url()} 300w,
+            ${urlFor(card.image).width(600).height(360).fit("crop").quality(80).url()} 600w
           `}
           sizes="(max-width: 768px) 100vw, 291px"
           alt={card.image.alt || `${card.company} project photo`}
@@ -40,7 +36,6 @@ const { card } = Astro.props;
           loading="lazy"
           class="w-full h-full rounded-xl object-cover"
         />
-        
       </div>
     ) : (
       <div
@@ -63,21 +58,30 @@ const { card } = Astro.props;
 
     {card.link && (
       <div class="mt-auto pt-6">
-        <a 
-          href={card.link.url} 
+        <a
+          href={card.link.url}
           class="border-none hover:underline font-bold px-0 bg-transparent gap-2 flex items-center hover:bg-transparent text-primary hover:text-primary"
         >
           {card.link.label}
 
           <span aria-hidden="true">
-            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+            <svg
+              class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              ></path>
             </svg>
           </span>
-
         </a>
       </div>
     )}
-
-    </div>
+  </div>
 </article>

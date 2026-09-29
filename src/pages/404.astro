@@ -1,14 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getSiteSettings } from '../lib/getData';
-import type { SiteSettings } from '../lib/types';
+import Layout from "../layouts/Layout.astro";
+import { getSiteSettings } from "../lib/getData";
+import type { SiteSettings } from "../lib/types";
 
 let settings: SiteSettings | null = null;
 
 try {
   settings = await getSiteSettings();
 } catch (error) {
-  console.error('Failed to load site settings:', error);
+  console.error("Failed to load site settings:", error);
 }
 ---
 
@@ -24,9 +24,9 @@ try {
       </h1>
 
       <p class="mx-auto mb-8 max-w-md text-gray-500">
-        This page is currently unavailable. Please visit our Success Stories to explore the available content.
+        This page is currently unavailable. Please visit our Success Stories to
+        explore the available content.
       </p>
-
 
       <a
         href="/success-stories"

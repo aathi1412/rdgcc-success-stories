@@ -4,19 +4,18 @@ import Hero from "../components/Hero.astro";
 import IntroSection from "../components/intro-section/IntroSection.astro";
 import StatsBand from "../components/StatsBand.astro";
 import Layout from "../layouts/Layout.astro";
-import {getSuccessStoriesPage, getSiteSettings} from "../lib/getData";
+import { getSuccessStoriesPage, getSiteSettings } from "../lib/getData";
 import type { SuccessStoriesPage, SiteSettings } from "../lib/types";
 
-
 type PageResult =
-  | { 
-        ok: true; 
-        page: SuccessStoriesPage; 
-        settings: SiteSettings | null 
+  | {
+      ok: true;
+      page: SuccessStoriesPage;
+      settings: SiteSettings | null;
     }
-  | { 
-        ok: false; 
-        error: string 
+  | {
+      ok: false;
+      error: string;
     };
 
 let result: PageResult;
@@ -25,19 +24,17 @@ try {
   const page = await getSuccessStoriesPage();
   const settings = await getSiteSettings();
 
-  result = { 
-    ok: true, 
-    page, 
-    settings 
-};
-
+  result = {
+    ok: true,
+    page,
+    settings,
+  };
 } catch (err) {
   result = {
     ok: false,
-    error: 'Unexpected error fetching page content.'
+    error: "Unexpected error fetching page content.",
   };
 }
-
 ---
 
 {!result.ok ? (
@@ -49,10 +46,7 @@ try {
 
     <body class="min-h-screen flex items-center justify-center bg-gray-50 p-6 font-body text-gray-800">
       <main class="w-full max-w-lg rounded-lg border border-gray-200 bg-white p-10 text-center shadow-sm">
-
-        <div
-          class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#eef4f8] text-[22px] font-semibold text-[#004681]"
-        >
+        <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#eef4f8] text-[22px] font-semibold text-[#004681]">
           !
         </div>
 
@@ -64,22 +58,15 @@ try {
           We couldn't load this page right now. Please try again later.
         </p>
 
-        <p class="mt-5 text-[13px] leading-5 text-gray-400">
-          {result.error}
-        </p>
-
+        <p class="mt-5 text-[13px] leading-5 text-gray-400">{result.error}</p>
       </main>
     </body>
   </html>
 ) : (
-
-    <Layout seo={result.page.seo} settings={result.settings}>
-        <Hero hero={result.page.hero} />
-        <IntroSection intro={result.page.intro} />
-        <StatsBand stats={result.page.stats} />
-        <CaseStudyGrid cards={result.page.caseStudies} />
-    </Layout>
+  <Layout seo={result.page.seo} settings={result.settings}>
+    <Hero hero={result.page.hero} />
+    <IntroSection intro={result.page.intro} />
+    <StatsBand stats={result.page.stats} />
+    <CaseStudyGrid cards={result.page.caseStudies} />
+  </Layout>
 )}
-
-
-

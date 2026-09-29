@@ -1,5 +1,5 @@
 ---
-import type { StatItem } from '../lib/types';
+import type { StatItem } from "../lib/types";
 
 interface Props {
   stat: StatItem;
@@ -7,6 +7,7 @@ interface Props {
 
 const { stat } = Astro.props;
 ---
+
 <div class="bg-transparent md:bg-[#F8F9FA] rounded-2xl md:min-h-55 last:col-span-2 last:pt-0 sm:last:col-span-1 sm:last:justify-self-auto sm:last:pt-8 flex flex-col items-center justify-start p-8">
   <h3 class="counter text-[40px] md:text-[60px] font-heading font-bold text-primary mb-5 flex items-baseline justify-center">
     {stat.number}

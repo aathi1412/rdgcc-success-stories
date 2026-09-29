@@ -1,5 +1,5 @@
 ---
-import type { NavLink, CtaButton } from '../../lib/types';
+import type { NavLink, CtaButton } from "../../lib/types";
 
 interface Props {
   links: NavLink[];
@@ -7,7 +7,7 @@ interface Props {
   cta?: CtaButton;
 }
 
-const { links, cta, currentPath = '' } = Astro.props;
+const { links, cta, currentPath = "" } = Astro.props;
 ---
 
 <div id="mobile-nav-root" class="lg:hidden">
@@ -22,7 +22,11 @@ const { links, cta, currentPath = '' } = Astro.props;
   >
     <!-- Top bar: logo + close -->
     <div class="relative z-10 flex h-19 shrink-0 items-center justify-between bg-[#F8FAFC] px-5 shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)] sm:px-6">
-      <a href="/" aria-label="RightDirect home" class="shrink-0 rounded focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary">
+      <a
+        href="/"
+        aria-label="RightDirect home"
+        class="shrink-0 rounded focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
         <img
           src="https://cdn.sanity.io/images/5twaxtv5/production/dec60c1e06fa94ef47a1a489f73dfdcad5a59bf3-676x106.svg?w=400&auto=format"
           alt="RightDirect"
@@ -40,7 +44,16 @@ const { links, cta, currentPath = '' } = Astro.props;
         aria-label="Close menu"
         class="flex h-11 w-11 scale-75 items-center justify-center rounded-full text-primary opacity-0 transition-[opacity,transform,background-color] duration-150 ease-out hover:bg-[#E3ECF5] active:scale-90 group-data-[open=true]/menu:scale-100 group-data-[open=true]/menu:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="26" height="26" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          width="26"
+          height="26"
+          aria-hidden="true"
+        >
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -50,121 +63,122 @@ const { links, cta, currentPath = '' } = Astro.props;
     <!-- Links -->
     <nav aria-label="Mobile Navigation" class="px-3 pt-4 sm:px-4">
       <ul>
-        {
-          links.map((item) => {
-            const isActive = item.url === currentPath;
-            const linkColor = isActive
-              ? "font-semibold text-[#004681]"
-              : "font-normal text-[#2C2C2C] hover:text-[#004681]";
-              
-              const row = "group/row flex min-h-16 items-center rounded-xl px-2 text-lg transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#004681] motion-reduce:transition-none";
+        {links.map((item) => {
+          const isActive = item.url === currentPath;
+          const linkColor = isActive
+            ? "font-semibold text-[#004681]"
+            : "font-normal text-[#2C2C2C] hover:text-[#004681]";
 
-            if (!item.children || item.children.length === 0) {
-              return (
-                <li class="border-b border-[#E9EDF2]">
-                  <a
-                    href={item.url}
-                    aria-current={isActive ? "page" : undefined}
-                    class:list={[row, linkColor]}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              );
-            }
+          const row =
+            "group/row flex min-h-16 items-center rounded-xl px-2 text-lg transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#004681] motion-reduce:transition-none";
 
+          if (!item.children || item.children.length === 0) {
             return (
               <li class="border-b border-[#E9EDF2]">
-                <details class="accordion group/accordion">
-                  <summary
-                    class:list={[row, linkColor, "cursor-pointer list-none justify-between [&::-webkit-details-marker]:hidden"]}
-                  >
-                    <span>{item.label}</span>
-                    <span
-                      aria-hidden="true"
-                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2F7] text-primary"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="18"
-                        height="18"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        class="transition-transform duration-300 ease-out group-open/accordion:rotate-45 motion-reduce:transition-none"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                      </svg>
-                    </span>
-                  </summary>
-
-                  <ul class="mb-3 ml-3 space-y-0.5 border-l border-[#E9EDF2] pl-4">
-                    {item.children?.map((entry) => (
-                      <li>
-                        {entry.children && entry.children.length > 0 ? (
-                          <details class="accordion group/nested">
-                            <summary
-                              class="group/sub flex cursor-pointer list-none items-center justify-between rounded-lg px-2 py-2.5 text-base text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden"
-                            >
-                              <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
-                                {entry.label}
-                              </span>
-                              <span
-                                aria-hidden="true"
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2F7] text-primary"
-                              >
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  width="18"
-                                  height="18"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  class="transition-transform duration-300 ease-out [details[open]>summary_&]:rotate-45 motion-reduce:transition-none"
-                                >
-                                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                                </svg>
-                              </span>
-                            </summary>
-
-                            <ul class="mb-1 ml-2 space-y-0.5 border-l border-[#E9EDF2] pl-4">
-                              <!-- Keeps the parent page reachable, since the row itself now only toggles -->
-                              {entry.children.map((child) => (
-                                <li>
-                                  <a
-                                    href={child.url}
-                                    class="group/sub block rounded-lg px-2 py-2 text-[15px] text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-primary"
-                                  >
-                                    <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 group-focus-visible/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
-                                      {child.label}
-                                    </span>
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </details>
-                        ) : (
-                          <a
-                            href={entry.url}
-                            class="group/sub block rounded-lg px-2 py-2.5 text-base text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
-                          >
-                            <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 group-focus-visible/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
-                              {entry.label}
-                            </span>
-                          </a>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
+                <a
+                  href={item.url}
+                  aria-current={isActive ? "page" : undefined}
+                  class:list={[row, linkColor]}
+                >
+                  {item.label}
+                </a>
               </li>
             );
-          })
-        }
+          }
+
+          return (
+            <li class="border-b border-[#E9EDF2]">
+              <details class="accordion group/accordion">
+                <summary
+                  class:list={[
+                    row,
+                    linkColor,
+                    "cursor-pointer list-none justify-between [&::-webkit-details-marker]:hidden",
+                  ]}
+                >
+                  <span>{item.label}</span>
+                  <span
+                    aria-hidden="true"
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2F7] text-primary"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      class="transition-transform duration-300 ease-out group-open/accordion:rotate-45 motion-reduce:transition-none"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                    </svg>
+                  </span>
+                </summary>
+
+                <ul class="mb-3 ml-3 space-y-0.5 border-l border-[#E9EDF2] pl-4">
+                  {item.children?.map((entry) => (
+                    <li>
+                      {entry.children && entry.children.length > 0 ? (
+                        <details class="accordion group/nested">
+                          <summary class="group/sub flex cursor-pointer list-none items-center justify-between rounded-lg px-2 py-2.5 text-base text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+                            <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
+                              {entry.label}
+                            </span>
+                            <span
+                              aria-hidden="true"
+                              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF2F7] text-primary"
+                            >
+                              <svg
+                                viewBox="0 0 24 24"
+                                width="18"
+                                height="18"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                class="transition-transform duration-300 ease-out [details[open]>summary_&]:rotate-45 motion-reduce:transition-none"
+                              >
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                              </svg>
+                            </span>
+                          </summary>
+
+                          <ul class="mb-1 ml-2 space-y-0.5 border-l border-[#E9EDF2] pl-4">
+                            <!-- Keeps the parent page reachable, since the row itself now only toggles -->
+                            {entry.children.map((child) => (
+                              <li>
+                                <a
+                                  href={child.url}
+                                  class="group/sub block rounded-lg px-2 py-2 text-[15px] text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-primary"
+                                >
+                                  <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 group-focus-visible/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
+                                    {child.label}
+                                  </span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      ) : (
+                        <a
+                          href={entry.url}
+                          class="group/sub block rounded-lg px-2 py-2.5 text-base text-[#4B5563] transition-colors duration-700 ease-out hover:text-primary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
+                        >
+                          <span class="inline-block transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/sub:translate-x-2 group-focus-visible/sub:translate-x-2 motion-reduce:transition-none motion-reduce:transform-none">
+                            {entry.label}
+                          </span>
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          );
+        })}
       </ul>
     </nav>
 
@@ -178,7 +192,12 @@ const { links, cta, currentPath = '' } = Astro.props;
           class="group/cta flex h-14 w-full items-center justify-between rounded-full bg-[#004681] px-7 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(0,70,129,0.55)] transition-[background-color,box-shadow] duration-200 hover:bg-[#003a6b] hover:shadow-[0_16px_32px_-10px_rgba(0,70,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004681] motion-reduce:transition-none"
         >
           <span>{cta.label}</span>
-          <span aria-hidden="true" class="text-xl leading-none transition-transform duration-200 group-hover/cta:translate-x-1 motion-reduce:transition-none">→</span>
+          <span
+            aria-hidden="true"
+            class="text-xl leading-none transition-transform duration-200 group-hover/cta:translate-x-1 motion-reduce:transition-none"
+          >
+            →
+          </span>
         </a>
       </div>
     )}
@@ -236,7 +255,9 @@ const { links, cta, currentPath = '' } = Astro.props;
       menu!.dataset.open = "false";
       document.body.classList.remove("overflow-hidden");
       collapseTimer = window.setTimeout(() => {
-        menu!.querySelectorAll("details[open]").forEach((d) => d.removeAttribute("open"));
+        menu!
+          .querySelectorAll("details[open]")
+          .forEach((d) => d.removeAttribute("open"));
       }, 320);
       openBtn!.setAttribute("aria-expanded", "false");
       if (restoreFocus) openBtn!.focus({ preventScroll: true });
@@ -256,9 +277,9 @@ const { links, cta, currentPath = '' } = Astro.props;
         return;
       }
       if (e.key !== "Tab") return;
-      const items = Array.from(menu.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => el.offsetParent !== null
-      );
+      const items = Array.from(
+        menu.querySelectorAll<HTMLElement>(FOCUSABLE),
+      ).filter((el) => el.offsetParent !== null);
       if (items.length === 0) return;
       const first = items[0];
       const last = items[items.length - 1];

@@ -6,19 +6,17 @@ interface Props {
 }
 
 const socialStyles: Record<string, string> = {
-  linkedin:
-    "hover:-translate-y-1 hover:border-[#0077B5] hover:bg-[#0077B5]",
-  facebook:
-    "hover:-translate-y-1 hover:border-[#1877F2] hover:bg-[#1877F2]",
-  whatsapp:
-    "hover:-translate-y-1 hover:border-green-500 hover:bg-green-500",
+  linkedin: "hover:-translate-y-1 hover:border-[#0077B5] hover:bg-[#0077B5]",
+  facebook: "hover:-translate-y-1 hover:border-[#1877F2] hover:bg-[#1877F2]",
+  whatsapp: "hover:-translate-y-1 hover:border-green-500 hover:bg-green-500",
 };
 
 const { link } = Astro.props;
 
 const platform = link.platform.toLowerCase();
-console.log(`${platform}.svg`)
+console.log(`${platform}.svg`);
 ---
+
 <div>
   <a
     href={link.url}

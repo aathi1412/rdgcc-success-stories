@@ -1,24 +1,25 @@
 # RightDirect Assessment
+
 An Astro frontend for the RightDirect Success Stories page, with content sourced from Sanity CMS. The Sanity Studio is maintained as a separate project and is not part of this repository.
 
 ## Tech Stack
 
-* Astro
-* TypeScript
-* Tailwind CSS v4 via `@tailwindcss/vite`
-* Sanity CMS
-* `@sanity/astro`
-* `@sanity/client`
-* `@sanity/image-url`
-* GROQ
+- Astro
+- TypeScript
+- Tailwind CSS v4 via `@tailwindcss/vite`
+- Sanity CMS
+- `@sanity/astro`
+- `@sanity/client`
+- `@sanity/image-url`
+- GROQ
 
 ## Setup
 
 ### Prerequisites
 
-* Node.js >= 22.12.0
-* npm
-* Access to the Sanity project and dataset used by the application
+- Node.js >= 22.12.0
+- npm
+- Access to the Sanity project and dataset used by the application
 
 ### Installation
 
@@ -96,10 +97,10 @@ Sanity is integrated through `@sanity/astro`.
 
 The frontend uses:
 
-* `@sanity/astro` for Astro integration
-* `@sanity/client` for querying Sanity content
-* GROQ for structured content queries
-* `@sanity/image-url` for generating Sanity image URLs
+- `@sanity/astro` for Astro integration
+- `@sanity/client` for querying Sanity content
+- GROQ for structured content queries
+- `@sanity/image-url` for generating Sanity image URLs
 
 The application uses the `production` dataset and `useCdn: false`, so content is fetched through Sanity's API rather than the Sanity CDN.
 
@@ -109,20 +110,20 @@ Sanity project configuration is provided through environment variables and is no
 
 The Success Stories page uses Sanity CMS for editable content, including:
 
-* Site settings
-* SEO metadata
-* Navigation and dropdown links
-* Header CTA
-* Success Stories content
-* Footer content
+- Site settings
+- SEO metadata
+- Navigation and dropdown links
+- Header CTA
+- Success Stories content
+- Footer content
 
 The frontend consumes this content through GROQ queries rather than hardcoding the CMS-managed page content.
 
 ## Deployment
 
-* GitHub repository: https://github.com/aathi1412/rdgcc-success-stories
-* Live website: https://rdgcc.netlify.app/success-stories/
-The Astro frontend and Sanity Studio are deployed and maintained separately.
+- GitHub repository: https://github.com/aathi1412/rdgcc-success-stories
+- Live website: https://rdgcc.netlify.app/success-stories/
+  The Astro frontend and Sanity Studio are deployed and maintained separately.
 
 The Sanity Studio requires authentication for access. Sanity project access can be granted to reviewers when required.
 
