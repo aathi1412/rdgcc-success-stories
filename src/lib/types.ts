@@ -20,7 +20,7 @@ export interface SuccessStoriesPage {
 }
 
 export interface SiteSettings {
-  logo?: SanityImage;
+  siteLogo?: SanityImage;
   googleIcon?: SanityImage;
   navLinks?: NavLink[];
   headerCta?: CtaButton;
